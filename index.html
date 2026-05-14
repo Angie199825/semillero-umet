@@ -143,6 +143,28 @@
   .contacto-icon { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
   .quote-box { background:var(--umet-pale); border-left:4px solid var(--umet); border-radius:0 12px 12px 0; padding:18px 22px; font-size:14px; font-style:italic; color:var(--text-mid); margin-top:24px; }
 
+  /* ── COMUNIDAD / GALERÍA ── */
+  .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-bottom:40px; }
+  .gallery-item { border-radius:14px; overflow:hidden; position:relative; aspect-ratio:4/3; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,.08); transition:transform .25s,box-shadow .25s; }
+  .gallery-item:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(0,181,170,.18); }
+  .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s; }
+  .gallery-item:hover img { transform:scale(1.06); }
+  .gallery-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,31,30,.7)); color:#fff; font-size:12px; padding:20px 14px 10px; opacity:0; transition:opacity .25s; }
+  .gallery-item:hover .gallery-caption { opacity:1; }
+  .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:999; align-items:center; justify-content:center; }
+  .lightbox.open { display:flex; }
+  .lightbox img { max-width:92vw; max-height:88vh; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  .lightbox-close { position:absolute; top:20px; right:28px; color:#fff; font-size:2.2rem; cursor:pointer; background:none; border:none; line-height:1; }
+  .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:2rem; background:rgba(255,255,255,.12); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+  .lightbox-nav:hover { background:rgba(0,181,170,.5); }
+  .lightbox-prev { left:20px; }
+  .lightbox-next { right:20px; }
+  .video-wrapper { border-radius:18px; overflow:hidden; background:var(--dark-bg); aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center; }
+  .video-wrapper iframe { width:100%; height:100%; border:none; }
+  .video-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:40px; text-align:center; width:100%; }
+  .video-placeholder .play-icon { width:72px; height:72px; border-radius:50%; background:var(--umet); display:flex; align-items:center; justify-content:center; font-size:28px; color:#fff; }
+  .video-placeholder p { color:rgba(255,255,255,.6); font-size:14px; margin:0; }
+
   /* ── FOOTER ── */
   footer { background:var(--dark-bg); color:rgba(255,255,255,.6); padding:36px 40px; }
   .footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
@@ -171,6 +193,7 @@
     <a href="#proyectos">Proyectos</a>
     <a href="#equipo">Equipo</a>
     <a href="#colaboracion">Colaboración</a>
+    <a href="#comunidad">Comunidad</a>
     <a href="#contacto">Contacto</a>
   </div>
 </nav>
@@ -552,6 +575,103 @@
 
 </main>
 
+  <!-- COMUNIDAD TARIFA -->
+  <section id="comunidad">
+    <h2 class="sec-title">Trabajo Comunitario</h2>
+    <p class="sec-sub">Actividades con adultos mayores en la Comunidad de Tarifa</p>
+    <div class="sec-divider"></div>
+
+    <div class="quote-box" style="margin-bottom:32px;">
+      Nuestro semillero lleva bienestar, arte y cuidado integral a los adultos mayores de la comunidad de Tarifa, fortaleciendo vínculos y promoviendo el envejecimiento activo con actividades recreativas y terapéuticas.
+    </div>
+
+    <!-- VIDEO -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--umet-deep);margin-bottom:16px;">🎬 Video de la Actividad</h3>
+    <div class="video-wrapper" style="margin-bottom:40px;" id="video-container">
+      <!-- REEMPLAZA EL ID DEL VIDEO DE YOUTUBE AQUÍ -->
+      <!-- Para agregar tu video: cambia "TU_VIDEO_ID" por el ID de YouTube (ej: dQw4w9WgXcQ) -->
+      <div class="video-placeholder" id="video-placeholder">
+        <div class="play-icon">▶</div>
+        <p style="color:rgba(255,255,255,.8);font-size:15px;font-weight:600;">Video próximamente</p>
+        <p>Cuando tengas el enlace de YouTube, compártelo y lo agregamos aquí.</p>
+      </div>
+    </div>
+
+    <!-- GALERÍA -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--umet-deep);margin-bottom:16px;">📸 Galería de Fotos</h3>
+    <div class="gallery-grid" id="gallery">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="images/foto1.jpg" alt="Actividad comunitaria Tarifa" loading="lazy">
+        <div class="gallery-caption">Estudiantes de UMET con adultos mayores</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="images/foto2.jpg" alt="Taller de manualidades" loading="lazy">
+        <div class="gallery-caption">Taller de manualidades creativas</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="images/foto3.jpg" alt="Obra de papel colorido" loading="lazy">
+        <div class="gallery-caption">Arte con papel — camaleones coloridos</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="images/foto4.jpg" alt="Dibujo 8 de Marzo" loading="lazy">
+        <div class="gallery-caption">Actividad: 8 de Marzo</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="images/foto5.jpg" alt="Dibujo de jirafa" loading="lazy">
+        <div class="gallery-caption">Dibujo libre — expresión artística</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="images/foto6.jpg" alt="Dibujo floral" loading="lazy">
+        <div class="gallery-caption">Ilustración de flores — creatividad</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(6)">
+        <img src="images/foto7.jpg" alt="Sopa de letras y coloreo" loading="lazy">
+        <div class="gallery-caption">Estimulación cognitiva — sopa de letras</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(7)">
+        <img src="images/foto8.jpg" alt="Frase motivacional" loading="lazy">
+        <div class="gallery-caption">"Mi paz no se negocia" — expresión personal</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(8)">
+        <img src="images/foto9.jpg" alt="Taller grupal" loading="lazy">
+        <div class="gallery-caption">Trabajo grupal en la comunidad</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(9)">
+        <img src="images/foto10.jpg" alt="Foto grupal final" loading="lazy">
+        <div class="gallery-caption">Foto grupal — semillero y adultos mayores de Tarifa</div>
+      </div>
+    </div>
+
+    <!-- Estadística de impacto -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:8px;">
+      <div class="logro-card">
+        <span class="logro-num">🏘️</span>
+        <div class="logro-label">Comunidad Tarifa</div>
+        <div class="logro-sub">Área de intervención comunitaria</div>
+      </div>
+      <div class="logro-card">
+        <span class="logro-num" style="font-size:1.6rem;">Adultos</span>
+        <div class="logro-label">Mayores beneficiados</div>
+        <div class="logro-sub">Actividades recreativas y terapéuticas</div>
+      </div>
+      <div class="logro-card">
+        <span class="logro-num" style="font-size:1.6rem;">Arte</span>
+        <div class="logro-label">y Estimulación Cognitiva</div>
+        <div class="logro-sub">Manualidades, dibujo y juegos</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="changeImg(-1);event.stopPropagation()">‹</button>
+  <img src="" alt="" id="lightbox-img">
+  <button class="lightbox-nav lightbox-next" onclick="changeImg(1);event.stopPropagation()">›</button>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -572,6 +692,52 @@
       c.style.display = (linea === 'all' || c.dataset.l === linea) ? 'flex' : 'none';
     });
   }
+
+  // Lightbox
+  const imgs = [
+    {src:'images/foto1.jpg', alt:'Estudiantes de UMET con adultos mayores'},
+    {src:'images/foto2.jpg', alt:'Taller de manualidades creativas'},
+    {src:'images/foto3.jpg', alt:'Arte con papel — camaleones coloridos'},
+    {src:'images/foto4.jpg', alt:'Actividad 8 de Marzo'},
+    {src:'images/foto5.jpg', alt:'Dibujo libre — jirafa'},
+    {src:'images/foto6.jpg', alt:'Ilustración floral'},
+    {src:'images/foto7.jpg', alt:'Estimulación cognitiva — sopa de letras'},
+    {src:'images/foto8.jpg', alt:'Mi paz no se negocia'},
+    {src:'images/foto9.jpg', alt:'Taller grupal comunitario'},
+    {src:'images/foto10.jpg', alt:'Foto grupal final'}
+  ];
+  let currentImg = 0;
+
+  function openLightbox(idx) {
+    currentImg = idx;
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    lbImg.src = imgs[idx].src;
+    lbImg.alt = imgs[idx].alt;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function changeImg(dir) {
+    currentImg = (currentImg + dir + imgs.length) % imgs.length;
+    const lbImg = document.getElementById('lightbox-img');
+    lbImg.src = imgs[currentImg].src;
+    lbImg.alt = imgs[currentImg].alt;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox({target: lb});
+    if (e.key === 'ArrowLeft') changeImg(-1);
+    if (e.key === 'ArrowRight') changeImg(1);
+  });
 </script>
 </body>
-</html>
